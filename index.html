@@ -5,17 +5,13 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-  
-    <style type="text/css">
+  <script type="text/javascript" src="game.js"></script>
 
-  .crystal-image {
-      width: 150px;
-      height: 150px;
-      margin: 20px;
-    }
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  
+    <link rel="stylesteet" type="text/css" href="assets/css/style.css"/>
     
-    </style>
+
   </head>
   <body>
 
@@ -37,7 +33,7 @@
    
     <div class="row"> <!-- open main body info row -->
 
-      <div class="col-md-6" style= "background-color: pink; text-align: center; font-size: 20px; height: 630px;"> <!-- Instructions Panel column -->
+      <div class="col-md-6" style= "background-color: #90EE90; text-align: center; font-size: 20px; height: 630px;"> <!-- Instructions Panel column -->
         <br>
         <p> Instructions </p>
           <br>
@@ -121,24 +117,21 @@
     var win = 0;
 
     var loss = 0;  
-                                        //sets the counter to 0 and we start adding from there
-
     
-
 
     function randomNumber(seed, selectNumber) {
             return Math.floor(Math.random()*seed) + selectNumber; 
-
     }
-    var numberOne = randomNumber(3,1);             
 
-    var numberTwo = randomNumber(7,4);         
+      var numberOne = randomNumber(3,1);             
 
-    var numberThree = randomNumber(10,2);
+      var numberTwo = randomNumber(7,4);         
 
-    var numberFour = randomNumber(12,3);        
+      var numberThree = randomNumber(10,2);
 
-    var numberOptions = [numberOne,numberTwo,numberThree,numberFour];
+      var numberFour = randomNumber(12,3);        
+
+      var numberOptions = [numberOne,numberTwo,numberThree,numberFour];
 
       $("#number-to-guess").text(targetNumber);  //two values, writes to the id number to guess at the top an uses the same number to calculate
         
@@ -152,13 +145,13 @@
               imageCrystal.addClass("crystal-image");   //CSS the image
               
               if (i === 0) {                            //pulls different images
-                imageCrystal.attr("src", "crystalblue.jpg");
+                imageCrystal.attr("src", "assets/images/crystalblue.jpg");
               } else if (i === 1) {
-                imageCrystal.attr("src", "crystalblue.jpg");
+                imageCrystal.attr("src", "assets/images/redcrystal.jpg");
               } else if (i === 2) {
-                imageCrystal.attr("src", "crystalblue.jpg");
+                imageCrystal.attr("src", "assets/images/whitecrystal.jpg");
               } else if (i === 3) {
-                imageCrystal.attr("src", "crystalblue.jpg");
+                imageCrystal.attr("src", "assets/images/greencrystal.jpg");
               }
     
               imageCrystal.attr("data-crystalvalue", numberOptions[i]);  // gives each image a value from the 
@@ -176,7 +169,6 @@
 
                 crystalValue = parseInt(crystalValue);       // changes the crystalValue to an numeric value if it is in a string
                 counter += crystalValue;
-                alert(counter);
                 $("#counter").html(counter);  // displays the total amount adding up to the magic number
 
 
