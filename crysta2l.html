@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>simple crystal game</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  
+    <style type="text/css">
+
+  .crystal-image {
+      width: 150px;
+      height: 150px;
+      margin: 20px;
+    }
+    
+    </style>
+  </head>
+  <body>
+
+  <div class="container">  <!--creates the overall grid -->
+
+    <div class="row"> <!--open head row -->
+
+      <div class="col-md-12" style= "margin-bottom: 25px;"> <!--open head column - full length of 12 -->
+
+       <h1 class="text-center">Your Magic Number Is: <span id="number-to-guess"></span></h1>
+        <br>
+        <div class="text-center">
+        <button id="startButton" class="btn btn-primary="><h1>Get Started!</h1></button>
+
+      </div> <!--close head column -->
+
+    </div> <!--close head row-->
+
+   
+    <div class="row"> <!-- open main body info row -->
+
+      <div class="col-md-6" style= "background-color: pink; text-align: center; font-size: 20px; height: 630px;"> <!-- Instructions Panel column -->
+        <br>
+        <p> Instructions </p>
+          <br>
+        <p> Your Magic Number Is Listed Above</p>
+          <br>
+        <p> There are four crystals below.  By clicking on a crystal you will add a specific amount of points to your total score. </p>
+          <br>
+        <p> You will win the game by matching your total score to the random number, you lose the game if your total score goes above the       random number</p>
+          <br>
+        <p> The value of each crystal is hidden from you until you click on it. </p>
+          <br>
+        <p> Each time the game starts, the game will change the values of each crystal.</p>
+          <br>
+        <p> Good Luck!!! </p>
+          <br>
+
+      </div> <!--close column for instructions-->
+
+
+      <div class="col-md-6" style= "background-color: #E0FFFF; text-align: center;font-size: 20px; height: 630px;"> <!-- Other info column for wins, losses -->
+        <br>
+        <p> Wins and Losses </p>
+          <br>
+        <p> Wins: <h3 id="win"></h3></p>
+          <br>
+        <p> Losses: <h3 id="loss"></h3></p>
+          <br>
+          <br>
+
+          <div class="col-md-4">  <!-- nested columns -->
+
+          </div>  <!--close col 4 -->
+
+          <div class="col-md-4" style = "background-color: yellow; padding: 10px;">
+
+            <p>Your Adding Score: </p><h3 id="counter"></h3>
+            <br>
+            <p>Countdown To The Magic Number: <h3 id="amountLeft"></h3>
+            </p>
+
+          </div> <!--close score column -->
+
+          <div class="col-md-4"> <!--final col 4 -->
+
+          </div> <!-- close final col 4 -->
+
+      </div> <!-- close column for other info-->
+
+    </div> <!-- close row-->
+
+
+    <div class="row">  <!-- open row for crystals -->
+
+      <div class="col-md-12" style = "background-color: gray; align-items: center;">
+
+        <div class = "text-center">
+     
+        <div id="crystals">
+
+        </div>
+
+        </div>
+
+      </div> <!-- close column -->
+
+    </div> <!-- close row -->
+
+
+
+
+  <script type="text/javascript">
+
+  $("#startButton").on("click", function() {
+  
+
+                                                                 
+    var targetNumber = Math.floor(Math.random()*61) + 28;      //generates random number between 28 -89                                         
+ 
+    var counter = 0;  
+
+    var win = 0;
+
+    var loss = 0;  
+                                        //sets the counter to 0 and we start adding from there
+
+    
+
+
+    function randomNumber(seed, selectNumber) {
+            return Math.floor(Math.random()*seed) + selectNumber; 
+
+    }
+    var numberOne = randomNumber(3,1);             
+
+    var numberTwo = randomNumber(7,4);         
+
+    var numberThree = randomNumber(10,2);
+
+    var numberFour = randomNumber(12,3);        
+
+    var numberOptions = [numberOne,numberTwo,numberThree,numberFour];
+
+      $("#number-to-guess").text(targetNumber);  //two values, writes to the id number to guess at the top an uses the same number to calculate
+        
+        $("#crystals").empty();  // dumps images to start over
+
+        for (var i = 0; i < numberOptions.length; i++) 
+            {
+
+          var imageCrystal = $("<img>");                //create an image var
+ 
+              imageCrystal.addClass("crystal-image");   //CSS the image
+              
+              if (i === 0) {                            //pulls different images
+                imageCrystal.attr("src", "crystalblue.jpg");
+              } else if (i === 1) {
+                imageCrystal.attr("src", "crystalblue.jpg");
+              } else if (i === 2) {
+                imageCrystal.attr("src", "crystalblue.jpg");
+              } else if (i === 3) {
+                imageCrystal.attr("src", "crystalblue.jpg");
+              }
+    
+              imageCrystal.attr("data-crystalvalue", numberOptions[i]);  // gives each image a value from the 
+
+              $("#crystals").append(imageCrystal);                      // each crystal image gets added to the view
+    
+            }  // closes the for loop for crystal image placement click
+
+         
+          $(".crystal-image").on("click", function()            // onclick function for each crystal
+          
+          {
+
+              var crystalValue = ($(this).attr("data-crystalvalue"));  // new varable of crystal value
+
+                crystalValue = parseInt(crystalValue);       // changes the crystalValue to an numeric value if it is in a string
+                counter += crystalValue;
+                alert(counter);
+                $("#counter").html(counter);  // displays the total amount adding up to the magic number
+
+
+                if (counter <= targetNumber)  // if the counter is less than the magic number, start the loop of display
+                    {
+                      var amountLeft = (targetNumber - counter); 
+
+                          if(amountLeft >= 0); {
+                                  
+                          $("#amountLeft").html(amountLeft);}
+                    }  // closes the display showing the amount left or countdown
+
+                if (counter === targetNumber) // once the counter is the same as the magic number, the user wins
+                  {
+                    win++;
+                    $("#win").html(win);
+                    counter = 0;
+                    alert(counter);
+                    amountLeft = 0;
+                    alert(amountLeft);
+                    $("#amountLeft").html(amountLeft);
+                  }  // closes the if statment for win
+
+                else if (counter >= targetNumber) 
+                  {
+                    loss++;
+                    $("#loss").html(loss);
+                    counter = 0;
+                    alert(counter);
+                    amountLeft = 0;
+                    alert(amountLeft);
+                    $("#amountLeft").html(amountLeft);
+                  }  // closes the loss loop
+
+  });
+});
+
+  </script>
+  </div>
+</body>
+</html>
